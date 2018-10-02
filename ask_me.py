@@ -10,6 +10,7 @@ def send_to_processor(to_send):
     print(f"Sent '{to_send}' to processor.")
     requests.post("http://127.0.0.1:5001/processor/", data=to_send)
 
+
 def save_to_txt(to_save):
     with open(file="saved_text.txt", mode="w") as f:
         f.write(str(to_save))
