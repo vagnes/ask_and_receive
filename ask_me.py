@@ -46,10 +46,15 @@ class Recieve(Resource):
         print(to_save)
         save_to_txt(to_save)
 
+class Last(Resource):
+
+    def get(self):
+        return load_from_txt()
 
 api.add_resource(Index, "/")
 api.add_resource(Ask, "/ask/")
 api.add_resource(Recieve, "/recieve/")
+api.add_resource(Last, "/last/")
 
 if __name__ == "__main__":
     app.run(port=5000, threaded=True, debug=True)
