@@ -9,7 +9,6 @@ curl 127.0.0.1:5000/ask/ -d "This is a test."
 ```
 
 TODO
-
-	* Implement JSON
-	* Implement HTTPS
-	* Add a HTML/CSS/JS example frontend
+* Implement JSON
+* Implement HTTPS
+* Add a HTML/CSS/JS example frontend
