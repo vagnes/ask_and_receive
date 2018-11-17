@@ -1,6 +1,5 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from time import sleep
 import requests
 from random import randrange
 
@@ -42,7 +41,6 @@ class Processor(Resource):
 
     def post(self):
         to_send = request.get_json()
-        sleep(0.1)
         send_to_ask(ask_processing(to_send))
 
 
