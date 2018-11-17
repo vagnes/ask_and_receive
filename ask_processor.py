@@ -4,25 +4,32 @@ from time import sleep
 import requests
 from random import randrange
 
+import json
+
+
 app = Flask(__name__)
 api = Api(app)
 
 
 def send_to_ask(to_send):
     print(f"Sent {to_send} to ask.")
-    requests.post("http://127.0.0.1:5000/recieve/", data=to_send)
+    requests.post("http://127.0.0.1:5000/recieve/", json=to_send)
 
 
 def ask_processing(to_process):
+    ''' changes capitalization of letters at random '''
     to_output = ""
 
-    for letter in to_process:
+    for letter in to_process['entry_string']:
         if randrange(0, 2) is 1:
             to_output += letter.capitalize()
         else:
             to_output += letter
 
-    return to_output
+    # update dict with processed entry
+    to_process.update({'processed_entry': to_output})
+
+    return to_process
 
 
 class Index(Resource):
@@ -34,7 +41,7 @@ class Index(Resource):
 class Processor(Resource):
 
     def post(self):
-        to_send = request.get_data().decode("utf-8")
+        to_send = request.get_json()
         sleep(0.1)
         send_to_ask(ask_processing(to_send))
 

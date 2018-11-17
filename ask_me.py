@@ -1,24 +1,32 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import requests
+import json
 
 app = Flask(__name__)
 api = Api(app)
 
 
+# Constants
+JSON_FILE = 'saved_entries.json'
+
+
 def send_to_processor(to_send):
     print(f"Sent '{to_send}' to processor.")
-    requests.post("http://127.0.0.1:5001/processor/", data=to_send)
+    requests.post("http://127.0.0.1:5001/processor/", json=to_send)
 
 
-def save_to_txt(to_save):
-    with open(file="saved_text.txt", mode="w") as f:
-        f.write(str(to_save))
+def update_json_file(to_save):
+    ''' stores json-string in JSON_FILE using python.json() '''
+    with open(file=JSON_FILE, mode="w") as jason:
+        json.dump(to_save, jason)
+        #jason.write(to_save)
 
-
-def load_from_txt():
-    with open(file="saved_text.txt", mode="r") as f:
-        return f.read()
+def load_json_file():
+    ''' returns JSON_FILEs' content as python.dict() '''
+    with open(file=JSON_FILE, mode="r") as jason:
+        file_content = json.load(jason)
+        return file_content
 
 
 class Index(Resource):
@@ -31,25 +39,26 @@ class Ask(Resource):
 
     def post(self):
         print("\n--Connection init--")
-        to_send = request.get_data().decode("utf-8")
-        print(to_send)
+
+        # request.get_json retursn the json-obj as a python-dict()
+        to_send = request.get_json()
         send_to_processor(to_send)
-        to_return = load_from_txt()
+        to_return = load_json_file()
         return to_return
 
 
 class Recieve(Resource):
 
     def post(self):
-        to_save = request.get_data()
-        to_save = to_save.decode("utf-8")
+        # extract entry from json before saving to file
+        to_save = request.get_json()
         print(to_save)
-        save_to_txt(to_save)
+        update_json_file(to_save)
 
 class Last(Resource):
 
     def get(self):
-        return load_from_txt()
+        return load_json_file()
 
 api.add_resource(Index, "/")
 api.add_resource(Ask, "/ask/")
