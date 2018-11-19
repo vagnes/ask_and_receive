@@ -1,7 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
+
 from flask_restful import Resource, Api
+
 import requests
 import json
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,13 +20,13 @@ def send_to_processor(to_send):
 
 
 def update_json_file(to_save):
-    ''' stores json-string in JSON_FILE using python.json() '''
+    """ stores json-string in JSON_FILE using python.json() """
     with open(file=JSON_FILE, mode="w") as jason:
         json.dump(to_save, jason)
-        #jason.write(to_save)
+
 
 def load_json_file():
-    ''' returns JSON_FILEs' content as python.dict() '''
+    """ returns JSON_FILEs' content as python.dict() """
     with open(file=JSON_FILE, mode="r") as jason:
         file_content = json.load(jason)
         return file_content
@@ -60,10 +63,12 @@ class Last(Resource):
     def get(self):
         return load_json_file()
 
+
 api.add_resource(Index, "/")
 api.add_resource(Ask, "/ask/")
 api.add_resource(Recieve, "/recieve/")
 api.add_resource(Last, "/last/")
+
 
 if __name__ == "__main__":
     app.run(port=5000, threaded=True, debug=True)

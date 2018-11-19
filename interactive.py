@@ -25,16 +25,16 @@ class Communicator(object):
 
         # fetch post-response as json and print to terminal
         response = post_request.json()
-        print(response['processed_entry'])
+        print(response["processed_entry"])
 
     def read_last(self):
         post_request = requests.get("http://127.0.0.1:5000/last/")
 
         # fetch post-response as json and print to terminal
         response = post_request.json()
-        original_entry = response['entry_string']
-        processed_entry = response['processed_entry']
-        print(f'{original_entry} -> {processed_entry}')
+        original_entry = response["entry_string"]
+        processed_entry = response["processed_entry"]
+        print(f"{original_entry} -> {processed_entry}")
 
 
 def main():
@@ -46,7 +46,7 @@ def main():
 
         # turn input into dict to pass through request.post() as json
         # conversion between dict and json is automatic 
-        to_send  = {'entry_string': to_send}
+        to_send  = {"entry_string": to_send}
         c.send_recieve(to_send)
     elif options == "2":
         print("Type what you want to send. \nType 'q' to quit.")
@@ -59,7 +59,7 @@ def main():
 
             # turn input into dict to pass through request.post() as json
             # conversion between dict and json is automatic
-            to_send  = {'entry_string': to_send}
+            to_send  = {"entry_string": to_send}
             c.send_recieve(to_send)
     elif options == "3":
         c.read_last()
