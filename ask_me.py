@@ -1,8 +1,6 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request
 
-from flask_restful import Resource
-from flask_restful import Api
+from flask_restful import Resource, Api
 
 import requests
 import json
