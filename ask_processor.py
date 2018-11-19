@@ -1,8 +1,11 @@
-from flask import Flask, request
-from flask_restful import Resource, Api
+from flask import Flask
+from flask import request
+
+from flask_restful import Resource
+from flask_restful import Api
+
 import requests
 from random import randrange
-
 import json
 
 
@@ -16,17 +19,17 @@ def send_to_ask(to_send):
 
 
 def ask_processing(to_process):
-    ''' changes capitalization of letters at random '''
+    """ changes capitalization of letters at random """
     to_output = ""
 
-    for letter in to_process['entry_string']:
+    for letter in to_process["entry_string"]:
         if randrange(0, 2) is 1:
             to_output += letter.capitalize()
         else:
             to_output += letter
 
     # update dict with processed entry
-    to_process.update({'processed_entry': to_output})
+    to_process.update({"processed_entry": to_output})
 
     return to_process
 
