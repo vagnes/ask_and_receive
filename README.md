@@ -2,7 +2,13 @@
 
 A very simple example of how microservices can be tied together with a RESTful API in Flask.
 
-To run the back-end, launch both of the Python services either through *run_services.py* or manually.
+## Automatic launch
+
+Run *run_services.py*. The front-end will be available at localhost:5003.
+
+## Manual launch
+
+To run the back-end, launch *ask_me.py* and *ask_processor.py*.
 
 To run the front-end, launch *front_end.py* to communicate with the services through a front-end interface. You can also curl from the terminal, or simply use the *rest_cli.py* program.
 
