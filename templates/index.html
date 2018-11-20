@@ -22,18 +22,15 @@
         </div>
 
         <div class="container">
-            <form>
+            <form method="post">
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Input:</label>
-                    <textarea class="form-control"
-                        id="exampleFormControlTextarea1" style="height: 150px"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" style="height: 150px" name="aar_input"></textarea>
                 </div>
-                <button class="btn btn-primary mb-3" type="submit">Submit</button>
-                <button class="btn btn-secondary mb-3" type="submit">Get Last Entry</button>
+                <button class="btn btn-primary mb-3" type="submit" value="submit">Submit</button>
             </form>
   
-            <input class="form-control" type="text" style="height:150px"
-            placeholder="output" readonly>
+            <input class="form-control" type="text" style="height:150px" placeholder="{% if output %}{{ output }} {% endif %}" readonly>
         </div>
 
         <div class="jumbotron jumbotron-fluid mb-0" style="height:10px;
