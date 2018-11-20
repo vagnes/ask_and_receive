@@ -1,30 +1,6 @@
-import requests
-import json
-
+from communicator import Communicator
 
 from flask import Flask, render_template, request
-
-
-class Communicator(object):
-
-    @staticmethod
-    def send_recieve(to_send):
-        post_request = requests.post(
-            "http://127.0.0.1:5000/ask/", json=to_send)
-
-        # fetch post-response as json and print to terminal
-        response = post_request.json()
-        return response["processed_entry"]
-
-    @staticmethod
-    def read_last():
-        post_request = requests.get("http://127.0.0.1:5000/last/")
-
-        # fetch post-response as json and print to terminal
-        response = post_request.json()
-        original_entry = response["entry_string"]
-        processed_entry = response["processed_entry"]
-        print(f"{original_entry} -> {processed_entry}")
 
 
 app = Flask(__name__)
@@ -32,12 +8,27 @@ app = Flask(__name__)
 
 @app.route("/", methods=["POST", "GET"])
 def index():
+    """ main view
+
+    Takes input-string and passes it through the communicator class
+    """
+
+    # set output to none
     output = None
+
+    # check for http-request
     if request.method == "POST":
+
+        # fetch data in request
         entry = request.form["aar_input"]
+
+        # put data into python-dict to use as json
         entry = {"entry_string": entry}
+
+        # send through Communicator  and store response in 'output'
         output = Communicator.send_recieve(entry)
-        return render_template("index.html", output=output)
+
+    # render webapp 
     return render_template("index.html", output=output)
 
 
