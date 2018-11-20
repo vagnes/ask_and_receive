@@ -20,9 +20,7 @@ Choose the following options:
 
 class Communicator(object):
 
-    def __init__(self):
-        pass
-
+    @staticmethod
     def send_recieve(self, to_send):
         post_request = requests.post(
             "http://127.0.0.1:5000/ask/", json=to_send)
@@ -31,6 +29,7 @@ class Communicator(object):
         response = post_request.json()
         print(response["processed_entry"])
 
+    @staticmethod
     def read_last(self):
         post_request = requests.get("http://127.0.0.1:5000/last/")
 
@@ -77,7 +76,7 @@ class Communicator(object):
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def index():
     return render_template("index.html")
 
