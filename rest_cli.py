@@ -2,6 +2,9 @@ import requests
 import json
 
 
+from communicator import Communicator
+
+
 MENU_TEXT = """
 
 Choose the following options:
@@ -12,29 +15,6 @@ Choose the following options:
 
 [0] : Exit.
 \n> """
-
-
-class Communicator(object):
-
-    def __init__(self):
-        pass
-
-    def send_recieve(self, to_send):
-        post_request = requests.post(
-            "http://127.0.0.1:5000/ask/", json=to_send)
-
-        # fetch post-response as json and print to terminal
-        response = post_request.json()
-        print(response["processed_entry"])
-
-    def read_last(self):
-        post_request = requests.get("http://127.0.0.1:5000/last/")
-
-        # fetch post-response as json and print to terminal
-        response = post_request.json()
-        original_entry = response["entry_string"]
-        processed_entry = response["processed_entry"]
-        print(f"{original_entry} -> {processed_entry}")
 
 
 def main():
