@@ -1,4 +1,4 @@
-# Ask and recieve
+# Ask and receive
 
 A very simple example of how microservices can be tied together with a RESTful API in Flask.
 
